@@ -474,7 +474,7 @@ Can only be mounted explicitly (i.e., the *-a* option will not cause the filesys
 **context=**__context__, **fscontext=**__context__, **defcontext=**__context__, and **rootcontext=**__context__::
 The *context=* option is useful when mounting filesystems that do not support extended attributes, such as a floppy or hard disk formatted with VFAT, or systems that are not normally running under SELinux, such as an ext3 or ext4 formatted disk from a non-SELinux workstation. You can also use *context=* on filesystems you do not trust, such as a floppy. It also helps in compatibility with xattr-supporting filesystems on earlier 2.4.<x> kernel versions. Even where xattrs are supported, you can save time not having to label every file by assigning the entire disk one security context.
 +
-A commonly used option for removable media is *context="system_u:object_r:removable_t*.
+A commonly used option for removable media is *context="system_u:object_r:removable_t*".
 +
 The *fscontext=* option works for all filesystems, regardless of their xattr support. The fscontext option sets the overarching filesystem label to a specific security context. This filesystem label is separate from the individual labels on the files. It represents the entire filesystem for certain kinds of permission checks, such as during mount or file creation. Individual file labels are still obtained from the xattrs on the files themselves. The context option actually sets the aggregate context that fscontext provides, in addition to supplying the same label for individual files.
 +
@@ -486,8 +486,7 @@ Note that the kernel rejects any remount request that includes the context optio
 +
 *Warning: the* _context_ *value might contain commas*, in which case the value has to be properly quoted, otherwise *mount* will interpret the comma as a separator between mount options. Don't forget that the shell strips off quotes and thus *double quoting is required*. For example:
 ____
-mount -t tmpfs none /mnt -o \
-'context="system_u:object_r:tmp_t:s0:c127,c456",noexec'
+mount -t tmpfs none /mnt -o 'context="system_u:object_r:tmp_t:s0:c127,c456",noexec'
 ____
 
 For more details, see *selinux*(8).
